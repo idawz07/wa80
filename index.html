@@ -750,6 +750,16 @@ Engine response check</div>
   <script src="jszip.min.js"></script>
   <script>
     (function () {
+      function isNativeShell() {
+        var cap = window.Capacitor;
+        if (cap && typeof cap.isNativePlatform === 'function') {
+          try {
+            return !!cap.isNativePlatform();
+          } catch (e) {}
+        }
+        return !!(window.webkit && window.webkit.messageHandlers);
+      }
+
       var STORAGE_KEY = 'wa80_guide_checks_v1';
       var checklistEl = document.getElementById('checklist');
 
@@ -1421,7 +1431,7 @@ Engine response check</div>
         }
       });
 
-      if ('serviceWorker' in navigator) {
+      if ('serviceWorker' in navigator && !isNativeShell()) {
         window.addEventListener('load', function () {
           navigator.serviceWorker.register('./sw.js').catch(function () {});
         });
