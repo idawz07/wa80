@@ -1,0 +1,25 @@
+{
+  "name": "WA80-8 Field Video Guide",
+  "short_name": "WA80-8 Guide",
+  "description": "Post-injector replacement inspection and engine test run guide for field use.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F2F2F2",
+  "theme_color": "#140A9A",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

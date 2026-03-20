@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>WA80-8 Field Video Guide</title>
+  <meta name="theme-color" content="#140A9A" />
+  <meta name="description" content="Post-injector replacement inspection and engine test run guide for iPad field use." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="WA80-8 Guide" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;700&display=swap');
+
+    :root {
+      --bg: #F2F2F2;
+      --card: #fff;
+      --ink: #000000;
+      --muted: #3A3A3A;
+      --line: #D9D9D9;
+      --blue: #140A9A;
+      --yellow: #F5C518;
+      --navy: #0C354B;
+      --green: #147a45;
+      --amber: #a15c00;
+      --red: #b42318;
+      --shadow: 0 8px 24px rgba(16,24,40,.08);
+      --radius: 0;
+      --font-heading: "Noto Sans", Arial, sans-serif;
+      --font-body: "Noto Sans", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.45;
+    }
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: max(16px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
+    }
+    .hero {
+      background: var(--blue);
+      color: #fff;
+      border-radius: 0;
+      padding: 22px 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+    .hero h1 { margin: 0 0 8px; font-size: clamp(28px, 5vw, 42px); line-height: 1.05; }
+    .hero p { margin: 0; color: rgba(255,255,255,.9); font-size: 16px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .chip {
+      background: rgba(245,197,24,.18);
+      border: 1px solid rgba(245,197,24,.45);
+      border-radius: 0;
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      padding: 8px 0 10px;
+      margin: 0 -4px;
+      padding-left: 4px;
+      padding-right: 4px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      background: rgba(255, 255, 255, .78);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav a {
+      text-decoration: none;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 8px 10px;
+      white-space: nowrap;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0.01em;
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .nav a:hover,
+    .nav a:focus-visible {
+      color: var(--blue);
+    }
+    .nav a.active {
+      color: var(--blue);
+      font-weight: 700;
+      border-bottom-color: var(--blue);
+      background: transparent;
+    }
+    .nav-export {
+      margin-left: auto;
+      flex-shrink: 0;
+      align-self: center;
+      border: none;
+      background: transparent;
+      color: var(--blue);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 10px;
+      min-height: 40px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .nav-export:hover,
+    .nav-export:focus-visible {
+      border-bottom-color: var(--blue);
+    }
+    .nav-export:disabled {
+      opacity: 0.55;
+      cursor: wait;
+    }
+    section[id], #notes {
+      scroll-margin-top: calc(56px + env(safe-area-inset-top));
+    }
+    .grid { display: grid; gap: 16px; }
+    @media (min-width: 900px) {
+      .grid-2 { grid-template-columns: 1.05fr .95fr; }
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    h2 {
+      margin: 0 0 12px;
+      font-size: 24px;
+      color: var(--blue);
+      font-family: var(--font-heading);
+      font-weight: 700;
+    }
+    .small, .note { color: var(--muted); font-size: 14px; }
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .02em;
+      margin-bottom: 10px;
+    }
+    .danger { background: #fdecec; color: var(--red); }
+    .warn { background: #fff1dd; color: var(--amber); }
+    .ok { background: #e9f7ef; color: var(--green); }
+    .info { background: #e8f1fb; color: var(--blue); }
+    ol.steps { margin: 0; padding-left: 22px; }
+    ol.steps li { margin: 0 0 12px; }
+    ul.clean { margin: 8px 0 0; padding-left: 18px; }
+    ul.clean li { margin: 6px 0; }
+    .meta { display: grid; gap: 10px; }
+    @media (min-width: 700px) {
+      .meta { grid-template-columns: repeat(3, 1fr); }
+    }
+    .meta div {
+      background: #f7fafc;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px;
+      font-size: 14px;
+    }
+    .togglebar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+    button {
+      border: none;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 0;
+      padding: 10px 12px;
+      font: inherit;
+      font-weight: 600;
+    }
+    .checklist { display: grid; gap: 10px; }
+    .check {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fbfdff;
+    }
+    .check input {
+      width: 22px;
+      height: 22px;
+      margin-top: 1px;
+      accent-color: var(--blue);
+      flex: 0 0 auto;
+    }
+    .check strong { display: block; }
+    .two-col { columns: 1; }
+    @media (min-width: 900px) {
+      .two-col { columns: 2; column-gap: 16px; }
+    }
+    .scene {
+      break-inside: avoid;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 12px;
+      background: linear-gradient(180deg, #fff, #fbfdff);
+    }
+    .scene h4 { margin: 0 0 8px; font-size: 17px; }
+    .caption {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      background: #0f172a;
+      color: #e5edf8;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 13px;
+      white-space: pre-wrap;
+    }
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 20px 8px 8px;
+      font-size: 13px;
+    }
+    hr.soft { border: none; border-top: 1px solid var(--line); margin: 14px 0; }
+    .stage {
+      border-left: 4px solid var(--blue);
+      padding: 10px 12px;
+      background: #f7fbff;
+      border-radius: 12px;
+      margin: 10px 0;
+    }
+    .warnbox {
+      background: #fff6e8;
+      border: 1px solid #f1d39c;
+      color: #7b4d00;
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .ref-images {
+      margin-top: 12px;
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+    }
+    .ref-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .ref-head strong { font-size: 14px; }
+    .ref-count { color: var(--muted); font-size: 12px; font-weight: 700; }
+    .ref-thumb-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .ref-thumb {
+      width: 78px;
+      height: 78px;
+      border-radius: 16px;
+      border: 1px dashed var(--line);
+      background: #fff;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .ref-thumb.filled { border-style: solid; }
+    .ref-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .ref-thumb-plus { font-size: 28px; color: var(--muted); line-height: 1; }
+    .ref-remove {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(15, 23, 42, .75);
+      color: #fff;
+      font-size: 18px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .ref-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .ref-add-btn, .ref-clear-btn {
+      padding: 10px 12px;
+      font-weight: 700;
+      min-height: 44px;
+    }
+    .ref-add-btn {
+      background: var(--yellow);
+      color: #000;
+    }
+    .ref-menu-wrap { position: relative; }
+    .ref-add-menu {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      z-index: 20;
+      min-width: 170px;
+      display: none;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 6px;
+    }
+    .ref-add-menu.open { display: block; }
+    .ref-menu-btn {
+      width: 100%;
+      text-align: left;
+      border: none;
+      background: transparent;
+      border-radius: 0;
+      padding: 10px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .ref-menu-btn:hover { background: #f3f7fc; }
+    .ref-clear-btn { background: #fff; }
+    .ref-hint { margin-top: 8px; color: var(--muted); font-size: 12px; }
+    .ref-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      box-sizing: border-box;
+    }
+    .ref-modal.open {
+      display: flex;
+    }
+    .ref-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, .45);
+    }
+    .ref-modal-box {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--line);
+      max-width: 360px;
+      width: 100%;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      border-radius: 0;
+    }
+    .ref-modal-box h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: var(--blue);
+      font-family: var(--font-heading);
+      font-weight: 700;
+    }
+    .ref-modal-text {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .ref-modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+    .ref-modal-actions button {
+      min-height: 44px;
+    }
+    .ref-modal-cancel {
+      background: #fff;
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+    .ref-modal-confirm {
+      background: var(--red);
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1>WA80-8 Field Video Guide</h1>
+      <p>Post-injector replacement inspection and engine test run guide for iPad field use.</p>
+      <div class="chips">
+        <span class="chip">Pre-start safety first</span>
+        <span class="chip">Bleed fuel circuit</span>
+        <span class="chip">3-stage leak test</span>
+        <span class="chip">Fuel spray caps</span>
+        <span class="chip">No warnings</span>
+      </div>
+    </header>
+
+    <nav class="nav" aria-label="Page sections">
+      <a href="#sequence">Sequence</a>
+      <a href="#leaktest">Leak test</a>
+      <a href="#checklist">Checklist</a>
+      <a href="#storyboard">Storyboard</a>
+      <a href="#inspection">Inspection</a>
+      <a href="#captions">Captions</a>
+      <a href="#notes">Notes</a>
+      <button type="button" class="nav-export" id="batch-export-refs">Export ZIP</button>
+    </nav>
+
+    <section id="sequence" class="grid grid-2">
+      <div class="card">
+        <span class="pill info">Updated sequence</span>
+        <h2>WA80-8 field sequence</h2>
+        <ol class="steps">
+          <li><strong>Opening and machine identification</strong><br><span class="small">Wide shot, machine tag, work area.</span></li>
+          <li><strong>Pre-start safety and cleanliness</strong><br><span class="small">Fuel hoses, clamps, guards, cushions, nearby wiring, spilled fuel, flammable debris.</span></li>
+          <li><strong>Fuel spray prevention caps check</strong><br><span class="small">Confirm all caps are installed correctly on injector pipe ends.</span></li>
+          <li><strong>Open right-side engine cover</strong><br><span class="small">Show service access for the fuel system.</span></li>
+          <li><strong>Bleed air from fuel circuit</strong><br><span class="small">Use the main filter air bleed plug and feed pump until fuel is free of bubbles.</span></li>
+          <li><strong>Final pre-start fuel inspection</strong><br><span class="small">Filter area, injector piping area, disturbed joints.</span></li>
+          <li><strong>Engine start</strong><br><span class="small">Show operator action and instrument panel if possible.</span></li>
+          <li><strong>Leak test stage 1: low idle</strong><br><span class="small">Run at low idle, stop engine, inspect for leaks.</span></li>
+          <li><strong>Leak test stage 2: high idle</strong><br><span class="small">Run at high idle, stop engine, inspect again.</span></li>
+          <li><strong>Leak test stage 3: load / throttle</strong><br><span class="small">Apply load or controlled raised-rpm condition, stop engine, inspect again.</span></li>
+          <li><strong>Final warning and response check</strong><br><span class="small">No abnormal warnings, smooth response.</span></li>
+          <li><strong>Closing confirmation</strong><br><span class="small">Machine running normally, clean final shot.</span></li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <span class="pill danger">Critical pass conditions</span>
+        <h2>Do not proceed unless these are true</h2>
+        <ul class="clean">
+          <li>Fuel tank has been filled before bleeding.</li>
+          <li>No spilled fuel, open flame, smoking, or flammable debris near the machine.</li>
+          <li>No loose clamps, guards, cushions, connectors, or wiring near the serviced area.</li>
+          <li>Fuel spray prevention caps are installed after injector pipe installation.</li>
+          <li>Fuel bleeding is completed until no air bubbles appear.</li>
+          <li>Bleed plug is tightened correctly.</li>
+          <li>Feed pump knob is pushed back in and tightened.</li>
+          <li>No fuel leakage is visible at low idle, high idle, or load check.</li>
+          <li>No abnormal warning lights are shown after testing.</li>
+        </ul>
+        <div class="meta" style="margin-top:12px;">
+          <div><strong>Bleed plug torque</strong><br>7.84 to 9.8 Nm</div>
+          <div><strong>Injector pipe sleeve nuts</strong><br>39 to 44 Nm</div>
+          <div><strong>Injector holder bolt</strong><br>39 to 49 Nm</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="leaktest" class="card" style="margin-top:16px;">
+      <span class="pill warn">Key update from manual</span>
+      <h2>3-stage fuel leakage examination</h2>
+      <p class="note">Best-practice test after injector installation: clean the engine and sprayed areas first, apply developer / dye to the supply pump, common rail, injectors, and fuel pipes, then inspect after each stage. If leakage is found at any stage, repair it and restart the procedure.</p>
+      <div class="stage"><strong>Stage 1:</strong> Run at low idle until engine speed becomes stable, stop engine, inspect sprayed areas.</div>
+      <div class="stage"><strong>Stage 2:</strong> Run at high idle, stop engine, inspect again.</div>
+      <div class="stage"><strong>Stage 3:</strong> Relieve pressure, apply load to the engine, stop engine, inspect again.</div>
+      <div class="warnbox"><strong>Important:</strong> The post-injector check is not just “start and look.” The manual uses a run-stop-inspect sequence at multiple conditions.</div>
+    </section>
+
+    <section id="checklist" class="card" style="margin-top:16px;">
+      <div class="togglebar">
+        <button type="button" onclick="setChecks(true)">Check all</button>
+        <button type="button" onclick="setChecks(false)">Clear all</button>
+      </div>
+      <span class="pill ok">Field checklist</span>
+      <h2>WA80-8 shoot checklist</h2>
+      <div class="checklist">
+        <label class="check"><input type="checkbox" data-check-id="wa80-0"><span><strong>Area ready</strong>Machine cleaned, safe background, portable light ready, batteries full.</span></label>
+        <label class="check"><input type="checkbox" data-check-id="wa80-1"><span><strong>Opening shots captured</strong>Wide machine view, machine identification, work area context.</span></label>
+        <label class="check"><input type="checkbox" data-check-id="wa80-2"><span><strong>Pre-start safety captured</strong>Hoses, clamps, guards, cushions, wiring, no spilled fuel, no debris.</span></label>
+        <label class="check"><input type="checkbox" data-check-id="wa80-3"><span><strong>Fuel spray prevention caps captured</strong>Show caps installed on injector pipe ends; verify orientation and completeness.</span></label>
+        <label class="check"><input type="checkbox" data-check-id="wa80-4"><span><strong>Right-side cover opening captured</strong>Clear service access shown on camera.</span></label>
+        <label class="check"><input type="checkbox" data-check-id="wa80-5"><span><strong>Fuel tank filled</strong>Confirmed before bleeding.</span></label>
+        <label class="check"><input type="checkbox" data-check-id="wa80-6"><span><strong>Fuel bleeding captured</strong>Bleed plug, feed pump motion, fuel flow without bubbles.</span></label>
+        <label class="check"><input type="checkbox" data-check-id="wa80-7"><span><strong>Bleed plug tightened</strong>Final tightening shown if possible.</span></label>
+        <label class="check"><input type="checkbox" data-check-id="wa80-8"><span><strong>Feed pump knob returned</strong>Pushed in and tightened.</span></label>
+        <label class="check"><input type="checkbox" data-check-id="wa80-9"><span><strong>Final pre-start fuel inspection captured</strong>No wetness or loose fittings before start.</span></label>
+        <label class="check"><input type="checkbox" data-check-id="wa80-10"><span><strong>Dye / developer applied</strong>Supply pump, common rail, injectors, and fuel pipes marked for leak inspection.</span></label>
+        <label class="check"><input type="checkbox" data-check-id="wa80-11"><span><strong>Low idle leak test captured</strong>Run, stop engine, inspect sprayed areas.</span></label>
+        <label class="check"><input type="checkbox" data-check-id="wa80-12"><span><strong>High idle leak test captured</strong>Run, stop engine, inspect again.</span></label>
+        <label class="check"><input type="checkbox" data-check-id="wa80-13"><span><strong>Load / throttle leak test captured</strong>Apply load or controlled response, stop engine, inspect again.</span></label>
+        <label class="check"><input type="checkbox" data-check-id="wa80-14"><span><strong>Warning check captured</strong>No abnormal warnings shown.</span></label>
+        <label class="check"><input type="checkbox" data-check-id="wa80-15"><span><strong>Final wide shot captured</strong>Machine running normally in a clean frame.</span></label>
+      </div>
+    </section>
+
+    <section id="storyboard" class="card" style="margin-top:16px;">
+      <span class="pill info">Storyboard</span>
+      <h2>Shot-by-shot guide</h2>
+      <div class="two-col">
+        <div class="scene">
+          <h4>1. Opening</h4>
+          <div class="meta">
+            <div><strong>Goal</strong><br>Introduce the machine and job.</div>
+            <div><strong>Shot</strong><br>Wide front and side views.</div>
+            <div><strong>Must show</strong><br>Clear WA80-8 identity and clean setting.</div>
+          </div>
+          <div class="caption" style="margin-top:10px;">WA80-8 Post-Injector Replacement - Inspection and Test</div>
+        </div>
+
+        <div class="scene">
+          <h4>2. Machine identification</h4>
+          <div class="meta">
+            <div><strong>Goal</strong><br>Document machine identity.</div>
+            <div><strong>Shot</strong><br>Machine tag / identification close-up.</div>
+            <div><strong>Must show</strong><br>Readable model information.</div>
+          </div>
+          <div class="caption" style="margin-top:10px;">Machine identification</div>
+        </div>
+
+        <div class="scene">
+          <h4>3. Pre-start safety check</h4>
+          <div class="meta">
+            <div><strong>Goal</strong><br>Reduce fire and damage risk before start.</div>
+            <div><strong>Shot</strong><br>Fuel hoses, clamps, guards, cushions, nearby connectors and wiring, surrounding cleanliness.</div>
+            <div><strong>Must show</strong><br>No loose items, no spilled fuel, no debris, no damaged wiring.</div>
+          </div>
+          <div class="caption" style="margin-top:10px;">Pre-start safety check
+No loose piping, clamps, or wiring
+No spilled fuel or flammable material</div>
+        </div>
+
+        <div class="scene">
+          <h4>4. Fuel spray prevention caps</h4>
+          <div class="meta">
+            <div><strong>Goal</strong><br>Verify fire-prevention caps after injector pipe installation.</div>
+            <div><strong>Shot</strong><br>Close-up of all injector pipe end caps.</div>
+            <div><strong>Must show</strong><br>Caps installed completely and consistently.</div>
+          </div>
+          <div class="caption" style="margin-top:10px;">Fuel spray prevention caps installed correctly</div>
+        </div>
+
+        <div class="scene">
+          <h4>5. Open right-side engine cover</h4>
+          <div class="meta">
+            <div><strong>Goal</strong><br>Show access to the service area.</div>
+            <div><strong>Shot</strong><br>Open the right-side engine cover.</div>
+            <div><strong>Must show</strong><br>Correct service access point.</div>
+          </div>
+          <div class="caption" style="margin-top:10px;">Open right-side engine cover</div>
+        </div>
+
+        <div class="scene">
+          <h4>6. Fuel bleeding</h4>
+          <div class="meta">
+            <div><strong>Goal</strong><br>Remove air from the fuel circuit after injector work.</div>
+            <div><strong>Shot</strong><br>Air bleed plug, feed pump knob pulled out, slow pumping action.</div>
+            <div><strong>Must show</strong><br>No air bubbles in fuel, plug tightening, pump knob returned and tightened.</div>
+          </div>
+          <div class="caption" style="margin-top:10px;">Bleed air from fuel circuit
+Pump slowly until no air bubbles
+Bleed plug torque: 7.84 to 9.8 Nm</div>
+        </div>
+
+        <div class="scene">
+          <h4>7. Final pre-start fuel inspection</h4>
+          <div class="meta">
+            <div><strong>Goal</strong><br>Confirm dry and secure condition before start.</div>
+            <div><strong>Shot</strong><br>Main filter area, injector piping area, disturbed fittings.</div>
+            <div><strong>Must show</strong><br>No wetness, no loose fittings, no seepage.</div>
+          </div>
+          <div class="caption" style="margin-top:10px;">Final fuel system check before start</div>
+        </div>
+
+        <div class="scene">
+          <h4>8. Dye / developer application</h4>
+          <div class="meta">
+            <div><strong>Goal</strong><br>Prepare for structured leak detection.</div>
+            <div><strong>Shot</strong><br>Spray supply pump, common rail, injectors, and fuel pipes.</div>
+            <div><strong>Must show</strong><br>Clear treated inspection zones.</div>
+          </div>
+          <div class="caption" style="margin-top:10px;">Apply leak detection to fuel system connections</div>
+        </div>
+
+        <div class="scene">
+          <h4>9. Engine start</h4>
+          <div class="meta">
+            <div><strong>Goal</strong><br>Show normal start after bleeding.</div>
+            <div><strong>Shot</strong><br>Operator start action and instrument panel if possible.</div>
+            <div><strong>Must show</strong><br>Normal crank and clean start.</div>
+          </div>
+          <div class="caption" style="margin-top:10px;">Engine start after bleeding</div>
+        </div>
+
+        <div class="scene">
+          <h4>10. Leak test stage 1: low idle</h4>
+          <div class="meta">
+            <div><strong>Goal</strong><br>Inspect after stable low idle.</div>
+            <div><strong>Shot</strong><br>Run at low idle, stop engine, inspect treated areas.</div>
+            <div><strong>Must show</strong><br>No leakage at injectors, common rail, supply pump, and pipes.</div>
+          </div>
+          <div class="caption" style="margin-top:10px;">Check for leakage at low idle</div>
+        </div>
+
+        <div class="scene">
+          <h4>11. Leak test stage 2: high idle</h4>
+          <div class="meta">
+            <div><strong>Goal</strong><br>Inspect again after high idle.</div>
+            <div><strong>Shot</strong><br>Run at high idle, stop engine, inspect treated areas again.</div>
+            <div><strong>Must show</strong><br>No leakage at higher pressure condition.</div>
+          </div>
+          <div class="caption" style="margin-top:10px;">Check for leakage at high idle</div>
+        </div>
+
+        <div class="scene">
+          <h4>12. Leak test stage 3: load / throttle</h4>
+          <div class="meta">
+            <div><strong>Goal</strong><br>Inspect under the hardest available condition.</div>
+            <div><strong>Shot</strong><br>Apply load or controlled response, stop engine, inspect again.</div>
+            <div><strong>Must show</strong><br>No leakage under load-type condition.</div>
+          </div>
+          <div class="caption" style="margin-top:10px;">Check for leakage under load</div>
+        </div>
+
+        <div class="scene">
+          <h4>13. Warning and response check</h4>
+          <div class="meta">
+            <div><strong>Goal</strong><br>Verify final machine condition.</div>
+            <div><strong>Shot</strong><br>Cluster / monitor close-up and response clip.</div>
+            <div><strong>Must show</strong><br>No abnormal warning lights and smooth response.</div>
+          </div>
+          <div class="caption" style="margin-top:10px;">No abnormal warnings
+Engine response check</div>
+        </div>
+
+        <div class="scene">
+          <h4>14. Final confirmation</h4>
+          <div class="meta">
+            <div><strong>Goal</strong><br>Close the video cleanly.</div>
+            <div><strong>Shot</strong><br>Wide shot of machine operating normally.</div>
+            <div><strong>Must show</strong><br>Normal finished state and safe area.</div>
+          </div>
+          <div class="caption" style="margin-top:10px;">Inspection complete</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="inspection" class="grid grid-2" style="margin-top:16px;">
+      <div class="card">
+        <span class="pill warn">Before start</span>
+        <h2>Inspection points to use</h2>
+        <ul class="clean">
+          <li>Fuel tank filled.</li>
+          <li>No spilled fuel.</li>
+          <li>No open flame or smoking nearby.</li>
+          <li>No flammable debris around engine area.</li>
+          <li>No loose hose/tube clamps, guards, or cushions.</li>
+          <li>No loose or damaged connectors and wiring near the serviced area.</li>
+          <li>No foreign material left around the fuel system.</li>
+          <li>Fuel spray prevention caps installed on the injector pipe ends.</li>
+          <li>Fuel injection pipes not bent or visibly damaged.</li>
+          <li>Bleeding completed until fuel is free of bubbles.</li>
+          <li>Bleed plug tightened.</li>
+          <li>Feed pump knob pushed back in and tightened.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="pill ok">After start</span>
+        <h2>Inspection points to confirm</h2>
+        <ul class="clean">
+          <li>Engine starts normally.</li>
+          <li>Stable idle.</li>
+          <li>No abnormal warning lights.</li>
+          <li>No fuel leakage at supply pump, common rail, injectors, fuel pipes, main filter, bleed plug, or disturbed joints.</li>
+          <li>No abnormal smoke.</li>
+          <li>No abnormal vibration or noise.</li>
+          <li>Smooth rpm response.</li>
+          <li>Passes low idle, high idle, and load leak inspections.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="captions" class="grid grid-2" style="margin-top:16px;">
+      <div class="card">
+        <span class="pill info">On-screen text</span>
+        <h2>Caption templates</h2>
+        <div class="caption">WA80-8 Post-Injector Replacement - Inspection and Test</div>
+        <div class="caption" style="margin-top:10px;">Pre-start safety check</div>
+        <div class="caption" style="margin-top:10px;">Fuel spray prevention caps installed correctly</div>
+        <div class="caption" style="margin-top:10px;">Bleed air from fuel circuit</div>
+        <div class="caption" style="margin-top:10px;">Pump slowly until no air bubbles</div>
+        <div class="caption" style="margin-top:10px;">Check for leakage at low idle</div>
+        <div class="caption" style="margin-top:10px;">Check for leakage at high idle</div>
+        <div class="caption" style="margin-top:10px;">Check for leakage under load</div>
+        <div class="caption" style="margin-top:10px;">No abnormal warnings</div>
+      </div>
+      <div id="notes" class="card">
+        <span class="pill danger">Field reminders</span>
+        <h2>Notes for filming</h2>
+        <ul class="clean">
+          <li>Film each critical step twice when possible: one wide shot and one close-up.</li>
+          <li>Use portable lighting for filter, injector pipe, and common rail close-ups.</li>
+          <li>Move slowly during leak checks so dry surfaces are visible on camera.</li>
+          <li>Use the run-stop-inspect method, not just a quick visual while running.</li>
+          <li>If leakage is found at any stage, repair it and restart the inspection sequence.</li>
+        </ul>
+        <p class="note">Add to Home Screen for app-like access. Serve from a website or local server (not a raw file URL) so offline caching works.</p>
+      </div>
+    </section>
+
+    <div class="footer">Prepared for field use on iPad • WA80-8 PWA with structured leak-test sequence</div>
+  </div>
+
+  <div id="ref-delete-modal" class="ref-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="ref-delete-modal-title">
+    <div class="ref-modal-backdrop" tabindex="-1"></div>
+    <div class="ref-modal-box">
+      <h3 id="ref-delete-modal-title">Remove reference photo?</h3>
+      <p class="ref-modal-text">This image will be removed from this guide on this device. You can add a new one anytime.</p>
+      <div class="ref-modal-actions">
+        <button type="button" class="ref-modal-cancel">Cancel</button>
+        <button type="button" class="ref-modal-confirm">Remove</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="jszip.min.js"></script>
+  <script>
+    (function () {
+      var STORAGE_KEY = 'wa80_guide_checks_v1';
+      var checklistEl = document.getElementById('checklist');
+
+      function readStore() {
+        try {
+          return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function saveChecklist() {
+        var data = readStore();
+        document.querySelectorAll('#checklist input[type="checkbox"][data-check-id]').forEach(function (cb) {
+          data[cb.getAttribute('data-check-id')] = cb.checked;
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      }
+
+      function loadChecklist() {
+        var data = readStore();
+        document.querySelectorAll('#checklist input[type="checkbox"][data-check-id]').forEach(function (cb) {
+          var id = cb.getAttribute('data-check-id');
+          if (Object.prototype.hasOwnProperty.call(data, id)) {
+            cb.checked = !!data[id];
+          }
+        });
+      }
+
+      window.setChecks = function (state) {
+        document.querySelectorAll('#checklist input[type="checkbox"][data-check-id]').forEach(function (cb) {
+          cb.checked = state;
+        });
+        saveChecklist();
+      };
+
+      // Reference images storage (offline) per storyboard scene + slot (0..2).
+      var REF_DB_NAME = 'wa80_ref_images_v1';
+      var REF_STORE_NAME = 'images';
+      var REF_SLOT_COUNT = 3;
+      var refDbPromise = null;
+
+      function requestToPromise(req) {
+        return new Promise(function (resolve, reject) {
+          req.onsuccess = function () {
+            resolve(req.result);
+          };
+          req.onerror = function () {
+            reject(req.error);
+          };
+        });
+      }
+
+      function openRefDb() {
+        if (refDbPromise) return refDbPromise;
+
+        refDbPromise = new Promise(function (resolve, reject) {
+          var req = indexedDB.open(REF_DB_NAME, 1);
+
+          req.onupgradeneeded = function (e) {
+            var db = e.target.result;
+            if (!db.objectStoreNames.contains(REF_STORE_NAME)) {
+              db.createObjectStore(REF_STORE_NAME, { keyPath: 'key' });
+            }
+          };
+
+          req.onsuccess = function () {
+            resolve(req.result);
+          };
+
+          req.onerror = function () {
+            reject(req.error);
+          };
+        });
+
+        return refDbPromise;
+      }
+
+      function idbKey(sceneKey, slot) {
+        return sceneKey + '::' + slot;
+      }
+
+      function idbGetImage(sceneKey, slot) {
+        return openRefDb().then(function (db) {
+          return new Promise(function (resolve, reject) {
+            var tx = db.transaction(REF_STORE_NAME, 'readonly');
+            var store = tx.objectStore(REF_STORE_NAME);
+            var req = store.get(idbKey(sceneKey, slot));
+            req.onsuccess = function () {
+              var record = req.result;
+              resolve(record || null);
+            };
+            req.onerror = function () {
+              reject(req.error);
+            };
+          });
+        });
+      }
+
+      function idbSetImage(sceneKey, slot, file) {
+        return openRefDb().then(function (db) {
+          return new Promise(function (resolve, reject) {
+            var tx = db.transaction(REF_STORE_NAME, 'readwrite');
+            var store = tx.objectStore(REF_STORE_NAME);
+            var key = idbKey(sceneKey, slot);
+            var req = store.put({
+              key: key,
+              sceneKey: sceneKey,
+              slot: slot,
+              mime: file.type || 'image/*',
+              blob: file,
+              addedAt: Date.now()
+            });
+            req.onsuccess = function () {
+              resolve(true);
+            };
+            req.onerror = function () {
+              reject(req.error);
+            };
+          });
+        });
+      }
+
+      function idbDeleteImage(sceneKey, slot) {
+        return openRefDb().then(function (db) {
+          return new Promise(function (resolve, reject) {
+            var tx = db.transaction(REF_STORE_NAME, 'readwrite');
+            var store = tx.objectStore(REF_STORE_NAME);
+            var req = store.delete(idbKey(sceneKey, slot));
+            req.onsuccess = function () {
+              resolve(true);
+            };
+            req.onerror = function () {
+              reject(req.error);
+            };
+          });
+        });
+      }
+
+      function idbListAllImages() {
+        return openRefDb().then(function (db) {
+          return new Promise(function (resolve, reject) {
+            var tx = db.transaction(REF_STORE_NAME, 'readonly');
+            var store = tx.objectStore(REF_STORE_NAME);
+            var out = [];
+            var req = store.openCursor();
+            req.onsuccess = function (e) {
+              var cur = e.target.result;
+              if (cur) {
+                out.push(cur.value);
+                cur.continue();
+              } else {
+                resolve(out);
+              }
+            };
+            req.onerror = function () {
+              reject(req.error);
+            };
+          });
+        });
+      }
+
+      var REF_EXPORT_APP = 'WA80';
+
+      function pad2(n) {
+        return n < 10 ? '0' + n : String(n);
+      }
+
+      function sceneNumFromSceneKey(sceneKey) {
+        var m = (sceneKey || '').match(/(\d+)/);
+        return m ? parseInt(m[1], 10) : 0;
+      }
+
+      function slugifyShotTitle(h4Text) {
+        if (!h4Text) return '';
+        var t = h4Text.replace(/^\s*\d+\.\s*/, '').trim();
+        t = t
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '')
+          .replace(/-+/g, '-');
+        if (t.length > 40) t = t.slice(0, 40).replace(/-+$/g, '');
+        return t;
+      }
+
+      function getShotMetaForSceneKey(sceneKey) {
+        var panel = document.querySelector('.ref-images[data-scene-key="' + sceneKey + '"]');
+        var scene = panel ? panel.closest('.scene') : null;
+        var h4 = scene ? scene.querySelector('h4') : null;
+        var text = h4 ? (h4.textContent || '') : '';
+        var numM = text.match(/^\s*(\d+)\./);
+        var nn = numM ? parseInt(numM[1], 10) : sceneNumFromSceneKey(sceneKey);
+        return { nn: nn, slug: slugifyShotTitle(text) };
+      }
+
+      function extFromMime(mime) {
+        var m = (mime || '').toLowerCase();
+        if (m.indexOf('png') !== -1) return 'png';
+        if (m.indexOf('jpeg') !== -1 || m.indexOf('jpg') !== -1) return 'jpg';
+        if (m.indexOf('gif') !== -1) return 'gif';
+        if (m.indexOf('webp') !== -1) return 'webp';
+        return 'bin';
+      }
+
+      function buildExportBasename(record, appPrefix, meta) {
+        var nn = pad2(meta.nn || sceneNumFromSceneKey(record.sceneKey));
+        var slot = (typeof record.slot === 'number' ? record.slot : 0) + 1;
+        var slugPart = meta.slug ? '-' + meta.slug : '';
+        return appPrefix + '-shot-' + nn + slugPart + '-s' + slot;
+      }
+
+      function uniqueZipName(record, base, ext, seen) {
+        var name = base + '.' + ext;
+        if (!seen[name]) {
+          seen[name] = true;
+          return name;
+        }
+        var suffix = record.addedAt || Date.now();
+        name = base + '-' + suffix + '.' + ext;
+        seen[name] = true;
+        return name;
+      }
+
+      function batchExportReferenceImages() {
+        if (typeof JSZip === 'undefined') {
+          alert('Export is not ready. Open this page once while online, then try again.');
+          return;
+        }
+        var btn = document.getElementById('batch-export-refs');
+        idbListAllImages()
+          .then(function (records) {
+            var images = records.filter(function (r) {
+              return r && r.blob && r.blob.size > 0;
+            });
+            if (!images.length) {
+              alert('No reference photos saved yet.');
+              return null;
+            }
+            if (btn) {
+              btn.disabled = true;
+              btn.textContent = 'Exporting…';
+            }
+            images.sort(function (a, b) {
+              var ma = getShotMetaForSceneKey(a.sceneKey);
+              var mb = getShotMetaForSceneKey(b.sceneKey);
+              if (ma.nn !== mb.nn) return ma.nn - mb.nn;
+              return (a.slot || 0) - (b.slot || 0);
+            });
+            var zip = new JSZip();
+            var folder = zip.folder('reference-images');
+            var seen = {};
+            images.forEach(function (rec) {
+              var meta = getShotMetaForSceneKey(rec.sceneKey);
+              var base = buildExportBasename(rec, REF_EXPORT_APP, meta);
+              var ext = extFromMime(rec.mime);
+              var entryName = uniqueZipName(rec, base, ext, seen);
+              folder.file(entryName, rec.blob);
+            });
+            return zip.generateAsync({ type: 'blob', compression: 'DEFLATE' });
+          })
+          .then(function (blob) {
+            if (!blob) return;
+            var now = new Date();
+            var stamp =
+              now.getFullYear() +
+              '-' +
+              pad2(now.getMonth() + 1) +
+              '-' +
+              pad2(now.getDate()) +
+              '-' +
+              pad2(now.getHours()) +
+              pad2(now.getMinutes());
+            var zipFilename = REF_EXPORT_APP + '-reference-' + stamp + '.zip';
+
+            if (navigator.share && navigator.canShare && typeof File !== 'undefined') {
+              try {
+                var file = new File([blob], zipFilename, { type: 'application/zip' });
+                if (navigator.canShare({ files: [file] })) {
+                  return navigator.share({ files: [file], title: zipFilename }).catch(function () {
+                    fallbackDownloadZip(blob, zipFilename);
+                  });
+                }
+              } catch (err) {}
+            }
+            fallbackDownloadZip(blob, zipFilename);
+          })
+          .catch(function () {
+            alert('Export failed.');
+          })
+          .then(function () {
+            if (btn) {
+              btn.disabled = false;
+              btn.textContent = 'Export ZIP';
+            }
+          });
+      }
+
+      function fallbackDownloadZip(blob, zipFilename) {
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = zipFilename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(function () {
+          URL.revokeObjectURL(url);
+        }, 60000);
+      }
+
+      var refDeleteModalState = null;
+
+      function closeRefDeleteModal() {
+        var modal = document.getElementById('ref-delete-modal');
+        if (modal) {
+          modal.classList.remove('open');
+          modal.setAttribute('aria-hidden', 'true');
+        }
+        document.body.style.overflow = '';
+        refDeleteModalState = null;
+      }
+
+      function openRefDeleteModal(sceneKey, slot, panel) {
+        refDeleteModalState = { sceneKey: sceneKey, slot: slot, panel: panel };
+        var modal = document.getElementById('ref-delete-modal');
+        if (!modal) {
+          if (window.confirm('Remove this reference photo?')) {
+            onRefDeleteConfirm();
+          } else {
+            refDeleteModalState = null;
+          }
+          return;
+        }
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function onRefDeleteConfirm() {
+        var s = refDeleteModalState;
+        if (!s) return;
+        var sceneKey = s.sceneKey;
+        var slot = s.slot;
+        var panel = s.panel;
+        var hintEl = panel.querySelector('[data-ref-hint]');
+        closeRefDeleteModal();
+        if (hintEl) hintEl.textContent = 'Removing image...';
+        idbDeleteImage(sceneKey, slot)
+          .then(function () {
+            return renderSceneRefs(sceneKey, panel);
+          })
+          .catch(function () {
+            if (hintEl) hintEl.textContent = 'Could not remove image.';
+          });
+      }
+
+      var refObjectUrls = {};
+
+      function getSceneNumber(sceneEl) {
+        var h4 = sceneEl.querySelector('h4');
+        var text = h4 ? (h4.textContent || '') : '';
+        var m = text.match(/(\d+)/);
+        return m ? parseInt(m[1], 10) : null;
+      }
+
+      function deriveSceneKey(sceneEl, sceneIndex) {
+        var num = getSceneNumber(sceneEl);
+        var n = num ? num : sceneIndex + 1;
+        return 'wa80-scene-' + n;
+      }
+
+      function createRefPanel(sceneKey) {
+        var panel = document.createElement('div');
+        panel.className = 'ref-images';
+        panel.setAttribute('data-scene-key', sceneKey);
+
+        var thumbHtml = '';
+        for (var s = 0; s < REF_SLOT_COUNT; s++) {
+          thumbHtml +=
+            '<div class="ref-thumb" data-slot="' + s + '" aria-label="Reference image slot ' + (s + 1) + '">' +
+              '<span class="ref-thumb-plus">+</span>' +
+              '<img alt="Reference image ' + (s + 1) + '" style="display:none;" />' +
+              '<button type="button" class="ref-remove" data-remove-slot="' + s + '" style="display:none;" aria-label="Remove reference image ' + (s + 1) + '">×</button>' +
+            '</div>';
+        }
+
+        panel.innerHTML =
+          '<div class="ref-head">' +
+            '<strong>Reference images</strong>' +
+            '<span class="ref-count" data-ref-count>0/' + REF_SLOT_COUNT + '</span>' +
+          '</div>' +
+          '<div class="ref-thumb-row" data-ref-thumbs>' + thumbHtml + '</div>' +
+          '<div class="ref-actions">' +
+            '<input class="ref-file-input" type="file" accept="image/*" multiple style="display:none" />' +
+            '<div class="ref-menu-wrap">' +
+              '<button type="button" class="ref-add-btn">Add photo(s)</button>' +
+              '<div class="ref-add-menu">' +
+                '<button type="button" class="ref-menu-btn" data-ref-action="capture">Capture photo</button>' +
+                '<button type="button" class="ref-menu-btn" data-ref-action="choose">Choose file</button>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="ref-hint" data-ref-hint aria-live="polite"></div>';
+
+        return panel;
+      }
+
+      function renderSceneRefs(sceneKey, panelEl) {
+        var statusEl = panelEl.querySelector('[data-ref-hint]');
+        if (statusEl) statusEl.textContent = '';
+
+        var promises = [];
+        for (var slot = 0; slot < REF_SLOT_COUNT; slot++) {
+          promises.push(idbGetImage(sceneKey, slot));
+        }
+
+        return Promise.all(promises).then(function (records) {
+          var filled = 0;
+
+          for (var slot2 = 0; slot2 < REF_SLOT_COUNT; slot2++) {
+            var thumb = panelEl.querySelector('.ref-thumb[data-slot="' + slot2 + '"]');
+            if (!thumb) continue;
+
+            var plus = thumb.querySelector('.ref-thumb-plus');
+            var img = thumb.querySelector('img');
+            var removeBtn = thumb.querySelector('button.ref-remove[data-remove-slot="' + slot2 + '"]');
+
+            var key = idbKey(sceneKey, slot2);
+            var record = records[slot2];
+
+            if (record && record.blob) {
+              filled++;
+
+              if (refObjectUrls[key]) {
+                try { URL.revokeObjectURL(refObjectUrls[key]); } catch (e) {}
+              }
+
+              var blobUrl = URL.createObjectURL(record.blob);
+              refObjectUrls[key] = blobUrl;
+
+              if (plus) plus.style.display = 'none';
+              if (img) {
+                img.src = blobUrl;
+                img.style.display = 'block';
+              }
+              if (removeBtn) {
+                removeBtn.style.display = 'flex';
+                removeBtn.disabled = false;
+              }
+
+              thumb.dataset.blobUrl = blobUrl;
+            } else {
+              if (refObjectUrls[key]) {
+                try { URL.revokeObjectURL(refObjectUrls[key]); } catch (e2) {}
+                delete refObjectUrls[key];
+              }
+
+              thumb.dataset.blobUrl = '';
+              if (plus) plus.style.display = '';
+              if (img) {
+                img.src = '';
+                img.style.display = 'none';
+              }
+              if (removeBtn) {
+                removeBtn.style.display = 'none';
+                removeBtn.disabled = true;
+              }
+            }
+          }
+
+          var countEl = panelEl.querySelector('[data-ref-count]');
+          if (countEl) countEl.textContent = filled + '/' + REF_SLOT_COUNT;
+        });
+      }
+
+      function initReferenceScenes() {
+        var storyboardEl = document.getElementById('storyboard');
+        if (!storyboardEl) return;
+
+        var scenes = storyboardEl.querySelectorAll('.scene');
+        scenes.forEach(function (sceneEl, idx) {
+          var sceneKey = deriveSceneKey(sceneEl, idx);
+          if (sceneEl.querySelector('.ref-images')) return;
+          var panel = createRefPanel(sceneKey);
+          sceneEl.appendChild(panel);
+          (function () {
+            var input = panel.querySelector('input.ref-file-input');
+            var addBtn = panel.querySelector('button.ref-add-btn');
+            var menu = panel.querySelector('.ref-add-menu');
+            var captureBtn = panel.querySelector('[data-ref-action="capture"]');
+            var chooseBtn = panel.querySelector('[data-ref-action="choose"]');
+            if (!input || !addBtn || !menu || !captureBtn || !chooseBtn) return;
+
+            function closeMenu() {
+              menu.classList.remove('open');
+            }
+
+            function openPicker(mode) {
+              if (mode === 'capture') input.setAttribute('capture', 'environment');
+              else input.removeAttribute('capture');
+              input.click();
+            }
+
+            addBtn.addEventListener('click', function (e) {
+              e.stopPropagation();
+              menu.classList.toggle('open');
+            });
+
+            captureBtn.addEventListener('click', function (e) {
+              e.stopPropagation();
+              closeMenu();
+              openPicker('capture');
+            });
+
+            chooseBtn.addEventListener('click', function (e) {
+              e.stopPropagation();
+              closeMenu();
+              openPicker('choose');
+            });
+
+            // Empty + opens file chooser; filled thumb opens image; delete confirms in modal.
+            var thumbs = panel.querySelectorAll('.ref-thumb[data-slot]');
+            thumbs.forEach(function (thumbEl) {
+              thumbEl.addEventListener('click', function (e) {
+                var blobUrl = thumbEl.dataset.blobUrl;
+                if (!blobUrl) {
+                  e.stopPropagation();
+                  closeMenu();
+                  openPicker('choose');
+                  return;
+                }
+                e.stopPropagation();
+                var w = window.open(blobUrl, '_blank');
+                if (!w) {
+                  window.location.href = blobUrl;
+                }
+              });
+
+              var removeBtn = thumbEl.querySelector('button.ref-remove');
+              if (!removeBtn) return;
+
+              removeBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var slot = parseInt(removeBtn.getAttribute('data-remove-slot'), 10);
+                openRefDeleteModal(sceneKey, slot, panel);
+              });
+            });
+
+            panel.addEventListener('click', function (e) {
+              if (e.target.closest('.ref-menu-wrap')) return;
+              if (e.target.closest('.ref-thumb')) return;
+              closeMenu();
+            });
+
+            input.addEventListener('change', function () {
+              var files = input.files ? Array.prototype.slice.call(input.files) : [];
+              if (!files.length) return;
+
+              var hintEl = panel.querySelector('[data-ref-hint]');
+              if (hintEl) hintEl.textContent = 'Saving reference image(s)...';
+
+              // Determine which slots are empty, then fill up to 3.
+              var getPromises = [];
+              for (var slot = 0; slot < REF_SLOT_COUNT; slot++) {
+                getPromises.push(idbGetImage(sceneKey, slot));
+              }
+
+              Promise.all(getPromises)
+                .then(function (records) {
+                  var emptySlots = [];
+                  for (var i = 0; i < REF_SLOT_COUNT; i++) {
+                    if (!records[i]) emptySlots.push(i);
+                  }
+
+                  if (!emptySlots.length) {
+                    if (hintEl) hintEl.textContent = 'Max 3 reference images reached for this scene.';
+                    return [];
+                  }
+
+                  var remaining = emptySlots.length;
+                  var toSave = files.slice(0, remaining);
+
+                  if (files.length > remaining && hintEl) {
+                    hintEl.textContent = 'Max 3 reached. Saved ' + toSave.length + ' image(s).';
+                  }
+
+                  var setPromises = [];
+                  for (var j = 0; j < toSave.length; j++) {
+                    setPromises.push(idbSetImage(sceneKey, emptySlots[j], toSave[j]));
+                  }
+                  return Promise.all(setPromises);
+                })
+                .then(function () {
+                  return renderSceneRefs(sceneKey, panel);
+                })
+                .catch(function () {
+                  if (hintEl) hintEl.textContent = 'Could not save images.';
+                })
+                .then(function () {
+                  try {
+                    input.value = '';
+                  } catch (e) {}
+                });
+            });
+          })();
+
+          renderSceneRefs(sceneKey, panel).catch(function () {});
+        });
+      }
+
+      function initNavSpy() {
+        var navLinks = document.querySelectorAll('.nav a[href^="#"]');
+        var ids = Array.prototype.map.call(navLinks, function (a) {
+          return a.getAttribute('href').slice(1);
+        });
+        var offset = 72;
+
+        function update() {
+          var activeId = ids[0];
+          var bestTop = -Infinity;
+          for (var i = 0; i < ids.length; i++) {
+            var el = document.getElementById(ids[i]);
+            if (!el) continue;
+            var top = el.getBoundingClientRect().top;
+            if (top <= offset && top > bestTop) {
+              bestTop = top;
+              activeId = ids[i];
+            }
+          }
+          navLinks.forEach(function (a) {
+            var on = a.getAttribute('href') === '#' + activeId;
+            a.classList.toggle('active', on);
+            if (on) a.setAttribute('aria-current', 'page');
+            else a.removeAttribute('aria-current');
+          });
+        }
+
+        update();
+        window.addEventListener(
+          'scroll',
+          function () {
+            requestAnimationFrame(update);
+          },
+          { passive: true }
+        );
+        window.addEventListener('resize', update);
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        loadChecklist();
+        if (checklistEl) {
+          checklistEl.addEventListener('change', function (e) {
+            if (e.target.matches('input[type="checkbox"]')) saveChecklist();
+          });
+        }
+        initReferenceScenes();
+        initNavSpy();
+        var exportBtn = document.getElementById('batch-export-refs');
+        if (exportBtn) {
+          exportBtn.addEventListener('click', function () {
+            batchExportReferenceImages();
+          });
+        }
+        var refDelModal = document.getElementById('ref-delete-modal');
+        if (refDelModal) {
+          refDelModal.querySelector('.ref-modal-cancel').addEventListener('click', closeRefDeleteModal);
+          refDelModal.querySelector('.ref-modal-confirm').addEventListener('click', onRefDeleteConfirm);
+          refDelModal.querySelector('.ref-modal-backdrop').addEventListener('click', closeRefDeleteModal);
+        }
+      });
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('./sw.js').catch(function () {});
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
